@@ -31,7 +31,7 @@ const Skills = () => {
       direction: 'right' as const,
       skills: [
         { name: 'Threat Modeling', level: 'Intermediate' },
-        { name: 'Cryptography', level: 'Intermediate' },
+        { name: 'Crypto', level: 'Intermediate' },
         { name: 'Pen Testing', level: 'Intermediate' },
         { name: 'Burp Suite', level: 'Advanced' },
         { name: 'Wireshark', level: 'Intermediate' },
@@ -70,7 +70,7 @@ const Skills = () => {
         { name: 'BERT', level: 'Intermediate' },
         { name: 'TensorFlow', level: 'Intermediate' },
         { name: 'OpenCV', level: 'Intermediate' },
-        { name: 'HuggingFace', level: 'Intermediate' },
+        { name: 'Hugging Face', level: 'Intermediate' },
         { name: 'Multimodal ML', level: 'Intermediate' },
         { name: 'NLP', level: 'Intermediate' },
         { name: 'PyTorch', level: 'Basic' },
