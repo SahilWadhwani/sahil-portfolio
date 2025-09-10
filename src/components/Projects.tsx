@@ -5,6 +5,14 @@ import ScrollReveal from './ScrollReveal';
 const Projects = () => {
   const projects = [
     {
+      title: 'AI-Powered-Threat-Hunting-Incident-Response-Platform',
+      description: 'AI-driven platform that detects threats in real-time and triggers incident response actions based on customizable rules and simulated adversary behavior',
+      image: 'https://images.pexels.com/photos/32026177/pexels-photo-32026177.jpeg?auto=compress&cs=tinysrgb&w=600',
+      tags: ['FastAPI', 'PostgreSQL', 'Threat Hunting', 'Automation'],
+      category: 'Cybersecurity',
+      codeLink: 'https://github.com/SahilWadhwani/AI-Powered-Threat-Hunting-Incident-Response-Platform.git'
+    },
+    {
       title: 'Certificate Verification System',
       description: 'Blockchain-based DApp for certificate authenticity using smart contracts and IPFS for decentralized storage.',
       image: 'https://images.pexels.com/photos/5380664/pexels-photo-5380664.jpeg?auto=compress&cs=tinysrgb&w=600',

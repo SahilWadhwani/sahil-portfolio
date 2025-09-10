@@ -17,6 +17,18 @@ const Certifications = () => {
       link: 'https://drive.google.com/file/d/1mgkPnKxwqJQ4kqqByh9fu5mjmA-5oRmQ/view?usp=sharing'
     },
     {
+      name: 'Security Engineer Learning Path',
+      issuer: 'TryHackMe',
+      category: 'Cybersecurity',
+      link: 'https://drive.google.com/file/d/1wxmZ0VVkDeTWFXFjVKwWEHcqUPsQCTcQ/view?usp=drive_link'
+    },
+    {
+      name: 'AWS Security Fundamentals',
+      issuer: 'Amazon Web Services',
+      category: 'Cybersecurity',
+      link: 'https://drive.google.com/file/d/1vhHoo-Rk1vtEsLnzUdkSaSrXBYWobSRf/view?usp=drive_link'
+    },
+    {
       name: 'Goethe Zertifikat B1',
       issuer: 'Goethe-Institut',
       category: 'German Language',
