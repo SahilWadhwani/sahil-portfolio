@@ -26,6 +26,13 @@ const Qualifications = () => {
 
   const experience = [
     {
+      title: 'Software Engineering Intern',
+      company: 'nowfluence',
+      period: 'Feb 2026 - May 2026',
+      location: 'Los Angeles, CA',
+      description: 'Worked across creator search, API latency optimization, lifecycle messaging, and AWS-backed infrastructure using Django, React, Redis, Celery, Docker, OpenAI, and AWS services including ECS, SES, SNS, and S3.'
+    },
+    {
       title: 'Associate Software Developer',
       company: 'Coditas',
       period: 'Jan 2024 - Dec 2024',
