@@ -1,0 +1,447 @@
+.glass-lab {
+  position: relative;
+  isolation: isolate;
+  min-width: 320px;
+  min-height: 100svh;
+  overflow: hidden;
+  padding: clamp(5rem, 9vw, 8rem) clamp(1rem, 5vw, 5rem) 18rem;
+  background: #05070c;
+  color: #f5f8fb;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+.glass-lab__background,
+.glass-lab__curves,
+.glass-lab__light-band {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.glass-lab__background {
+  z-index: -1;
+  overflow: hidden;
+  background: linear-gradient(145deg, #05070c, #080d18 56%, #070a13);
+}
+
+.glass-lab__light-band {
+  top: 13%;
+  right: -12%;
+  bottom: auto;
+  left: 20%;
+  height: 24rem;
+  transform: rotate(-9deg);
+  background: linear-gradient(90deg, transparent, rgba(54, 151, 214, 0.2), rgba(80, 75, 190, 0.27), transparent);
+  filter: blur(32px);
+}
+
+.glass-lab__grid {
+  position: absolute;
+  top: 10%;
+  right: 4%;
+  width: min(42rem, 54vw);
+  height: 34rem;
+  border: 1px solid rgba(194, 225, 245, 0.15);
+  background-image:
+    linear-gradient(rgba(193, 224, 244, 0.19) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 224, 244, 0.19) 1px, transparent 1px);
+  background-size: 18px 18px;
+  mask-image: linear-gradient(135deg, #000 35%, transparent 94%);
+}
+
+.glass-lab__curves {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.glass-lab__curves path {
+  fill: none;
+  stroke: rgba(214, 235, 249, 0.57);
+  stroke-width: 1.15;
+  vector-effect: non-scaling-stroke;
+}
+
+.glass-lab__shape {
+  position: absolute;
+  border: 1px solid rgba(187, 219, 242, 0.48);
+  background: rgba(96, 164, 213, 0.08);
+}
+
+.glass-lab__shape--circle {
+  top: 24%;
+  left: 8%;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+}
+
+.glass-lab__shape--square {
+  right: 12%;
+  bottom: 24%;
+  width: 5.5rem;
+  height: 5.5rem;
+  transform: rotate(18deg);
+  border-radius: 0.8rem;
+}
+
+.glass-lab__microcopy {
+  position: absolute;
+  color: rgba(221, 234, 245, 0.74);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+}
+
+.glass-lab__microcopy--one {
+  top: 42%;
+  left: 5%;
+}
+
+.glass-lab__microcopy--two {
+  top: 64%;
+  right: 8%;
+}
+
+.glass-lab__heading {
+  position: relative;
+  z-index: 2;
+  width: min(44rem, 100%);
+  margin-bottom: 4rem;
+}
+
+.glass-lab__heading > span,
+.glass-lab__test-label span,
+.glass-lab__comparison-label {
+  color: rgba(162, 199, 222, 0.75);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.glass-lab__heading h1 {
+  margin-top: 0.7rem;
+  font-size: clamp(2.6rem, 6vw, 5.6rem);
+  font-weight: 620;
+  letter-spacing: -0.055em;
+  line-height: 0.95;
+}
+
+.glass-lab__heading p {
+  max-width: 39rem;
+  margin-top: 1.2rem;
+  color: rgba(198, 210, 222, 0.76);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.glass-lab__stage {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 6rem);
+  max-width: 86rem;
+  margin: 0 auto;
+}
+
+.glass-lab__test {
+  min-width: 0;
+}
+
+.glass-lab__test-label {
+  display: grid;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.glass-lab__test-label strong {
+  color: rgba(237, 244, 249, 0.88);
+  font-size: 0.9rem;
+  font-weight: 550;
+}
+
+.glass-lab__large-panel {
+  width: min(30rem, calc(100vw - 2rem));
+  height: 24rem;
+  overflow: hidden;
+  border: 1px solid rgba(235, 248, 255, 0.16);
+  border-radius: 3.6rem 3.6rem 6.5rem 3.6rem;
+  background: rgba(180, 221, 246, 0.035);
+  box-shadow: 0 36px 90px rgba(0, 0, 0, 0.42);
+}
+
+.glass-lab__panel-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem;
+  background: linear-gradient(to top, rgba(5, 9, 16, 0.33), transparent 48%);
+}
+
+.glass-lab__panel-content > span,
+.glass-lab__refract-badge {
+  color: rgba(191, 225, 243, 0.72);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+}
+
+.glass-lab__panel-content strong {
+  margin-top: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 560;
+}
+
+.glass-lab__panel-content p {
+  max-width: 23rem;
+  margin-top: 0.55rem;
+  color: rgba(207, 219, 230, 0.7);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.glass-lab__refract-comparison {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.glass-lab__refract-comparison > div {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.glass-lab__source-graphic,
+.glass-lab__refract-panel {
+  position: relative;
+  width: 320px;
+  max-width: 100%;
+  height: 220px;
+  overflow: hidden;
+  border: 1px solid rgba(216, 236, 248, 0.14);
+  border-radius: 2.15rem;
+  background: linear-gradient(135deg, #0c1830, #172756 52%, #271c55);
+}
+
+.glass-lab__source-graphic svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glass-lab__source-graphic svg path,
+.glass-lab__source-graphic svg circle,
+.glass-lab__source-graphic svg rect {
+  fill: none;
+  stroke: rgba(232, 244, 255, 0.83);
+  stroke-width: 1.1;
+}
+
+.glass-lab__source-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(210, 231, 247, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(210, 231, 247, 0.16) 1px, transparent 1px);
+  background-size: 14px 14px;
+}
+
+.glass-lab__source-graphic strong,
+.glass-lab__source-graphic small {
+  position: absolute;
+  z-index: 2;
+  left: 1.2rem;
+}
+
+.glass-lab__source-graphic strong {
+  bottom: 2.1rem;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.glass-lab__source-graphic small {
+  bottom: 1rem;
+  color: rgba(214, 226, 238, 0.75);
+  font-size: 0.66rem;
+}
+
+.glass-lab__refract-panel {
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+}
+
+.glass-lab__refract-badge {
+  position: absolute;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 4;
+}
+
+.glass-lab__moving-lens-wrap {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 8;
+  pointer-events: none;
+}
+
+.glass-lab__moving-lens {
+  display: grid !important;
+  width: 9.5rem;
+  height: 9.5rem;
+  transform: translate(-50%, -50%);
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid rgba(241, 250, 255, 0.22);
+  border-radius: 43%;
+  background: rgba(176, 218, 242, 0.045);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.33);
+}
+
+.glass-lab__moving-lens-content {
+  color: rgba(236, 248, 255, 0.52);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+}
+
+.glass-lab__debug {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  z-index: 12;
+  display: grid;
+  grid-template-columns: minmax(20rem, 0.8fr) minmax(30rem, 1.5fr);
+  gap: 1rem;
+  max-width: 76rem;
+  margin: 0 auto;
+  padding: 1rem;
+  border: 1px solid rgba(224, 241, 250, 0.14);
+  border-radius: 1.25rem;
+  background: rgba(8, 12, 20, 0.88);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.glass-lab__debug-status {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.7rem;
+}
+
+.glass-lab__debug-status span {
+  display: grid;
+  gap: 0.2rem;
+  min-width: 0;
+  padding: 0.6rem 0.7rem;
+  border: 1px solid rgba(255, 255, 255, 0.065);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.glass-lab__debug-status small {
+  color: rgba(153, 170, 187, 0.68);
+  font-size: 0.63rem;
+}
+
+.glass-lab__debug-status strong {
+  overflow: hidden;
+  color: rgba(232, 241, 247, 0.9);
+  font-size: 0.72rem;
+  font-weight: 550;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.glass-lab__controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem 1rem;
+}
+
+.glass-lab__controls label {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.2rem 0.5rem;
+  color: rgba(199, 213, 225, 0.74);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.65rem;
+}
+
+.glass-lab__controls output {
+  color: rgba(224, 239, 248, 0.92);
+}
+
+.glass-lab__controls input {
+  width: 100%;
+  grid-column: 1 / -1;
+  accent-color: #8fc8e7;
+  cursor: pointer;
+}
+
+.glass-lab__controls input:focus-visible {
+  outline: 2px solid rgba(143, 200, 231, 0.8);
+  outline-offset: 3px;
+}
+
+@media (max-width: 900px) {
+  .glass-lab {
+    padding-bottom: 30rem;
+  }
+
+  .glass-lab__stage {
+    grid-template-columns: 1fr;
+  }
+
+  .glass-lab__debug {
+    grid-template-columns: 1fr;
+  }
+
+  .glass-lab__grid {
+    width: 80vw;
+  }
+}
+
+@media (max-width: 560px) {
+  .glass-lab {
+    padding-inline: 1rem;
+    padding-bottom: 37rem;
+  }
+
+  .glass-lab__heading {
+    margin-bottom: 2.5rem;
+  }
+
+  .glass-lab__large-panel {
+    height: 21rem;
+  }
+
+  .glass-lab__source-graphic,
+  .glass-lab__refract-panel {
+    width: min(320px, calc(100vw - 2rem)) !important;
+  }
+
+  .glass-lab__moving-lens {
+    width: 7.5rem;
+    height: 7.5rem;
+  }
+
+  .glass-lab__debug-status,
+  .glass-lab__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .glass-lab__moving-lens-wrap {
+    transition: none;
+  }
+}

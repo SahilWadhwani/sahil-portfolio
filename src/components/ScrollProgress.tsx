@@ -1,24 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import { motion, useReducedMotion, useScroll, useSpring } from 'motion/react';
 
 const ScrollProgress = () => {
-  const [scrollProgress, setScrollProgress] = useState(0);
-
-  useEffect(() => {
-    const updateScrollProgress = () => {
-      const scrollPx = document.documentElement.scrollTop;
-      const winHeightPx = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-      const scrolled = (scrollPx / winHeightPx) * 100;
-      setScrollProgress(scrolled);
-    };
-
-    window.addEventListener('scroll', updateScrollProgress);
-    return () => window.removeEventListener('scroll', updateScrollProgress);
-  }, []);
+  const { scrollYProgress } = useScroll();
+  const shouldReduceMotion = useReducedMotion();
+  const smoothProgress = useSpring(scrollYProgress, {
+    stiffness: 110,
+    damping: 28,
+    mass: 0.25,
+  });
 
   return (
-    <div 
+    <motion.div
+      aria-hidden="true"
       className="scroll-progress"
-      style={{ width: `${scrollProgress}%` }}
+      style={{ scaleX: shouldReduceMotion ? scrollYProgress : smoothProgress }}
     />
   );
 };
