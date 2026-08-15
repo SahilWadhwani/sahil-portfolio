@@ -1,143 +1,183 @@
-import React from 'react';
-import { Code, Shield, Server, Brain } from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
+
+interface SkillCategory {
+  number: string;
+  id: string;
+  title: string;
+  descriptor: string;
+  accent: 'neutral' | 'systems' | 'ai' | 'security' | 'tools';
+  skills: string[];
+}
+
+const skillCategories: SkillCategory[] = [
+  {
+    number: '01',
+    id: 'languages',
+    title: 'Programming Languages',
+    descriptor: 'The foundations.',
+    accent: 'neutral',
+    skills: [
+      'Python',
+      'Go',
+      'TypeScript',
+      'JavaScript',
+      'Java',
+      'C/C++',
+      'SQL',
+      'Bash',
+    ],
+  },
+  {
+    number: '02',
+    id: 'systems-backend',
+    title: 'Systems & Backend',
+    descriptor: 'Where most of my engineering lives.',
+    accent: 'systems',
+    skills: [
+      'Distributed Systems',
+      'Concurrency',
+      'Multithreading',
+      'System Design',
+      'REST APIs',
+      'FastAPI',
+      'Django',
+      'Node.js',
+      'PostgreSQL',
+      'MongoDB',
+      'Redis',
+      'Celery',
+    ],
+  },
+  {
+    number: '03',
+    id: 'ai-retrieval',
+    title: 'AI/ML & Retrieval',
+    descriptor: 'Models, retrieval, and intelligent workflows.',
+    accent: 'ai',
+    skills: [
+      'Machine Learning',
+      'PyTorch',
+      'BERT',
+      'Natural Language Processing',
+      'Information Retrieval',
+      'Large Language Models',
+      'AI Agents',
+      'LLM Orchestration',
+      'Pandas',
+      'Scikit-learn',
+    ],
+  },
+  {
+    number: '04',
+    id: 'security-engineering',
+    title: 'Security Engineering',
+    descriptor: 'Security as part of the architecture.',
+    accent: 'security',
+    skills: [
+      'Threat Modeling',
+      'Application Security',
+      'Vulnerability Management',
+      'Security Testing',
+      'RBAC',
+      'JWT Authentication',
+      'Burp Suite',
+      'Metasploit',
+      'Nmap',
+      'Wireshark',
+      'Incident Response',
+    ],
+  },
+  {
+    number: '05',
+    id: 'cloud-data-tools',
+    title: 'Cloud, Data & Developer Tools',
+    descriptor: 'Shipping, observing, and operating software.',
+    accent: 'tools',
+    skills: [
+      'Azure',
+      'AWS',
+      'Google Cloud Platform',
+      'Azure Data Explorer',
+      'KQL',
+      'Grafana',
+      'Docker',
+      'Git / GitHub',
+      'Unix / Linux',
+      'Postman',
+    ],
+  },
+];
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Full Stack Development',
-      icon: Code,
-      color: 'from-blue-500 to-cyan-500',
-      direction: 'left' as const,
-      skills: [
-        { name: 'Python', level: 'Advanced' },
-        { name: 'JavaScript', level: 'Intermediate' },
-        { name: 'Golang', level: 'Intermediate' },
-        { name: 'TypeScript', level: 'Intermediate' },
-        { name: 'Node.js', level: 'Intermediate' },
-        { name: 'Express.js', level: 'Intermediate' },
-        { name: 'Flask', level: 'Advanced' },
-        { name: 'React.js', level: 'Advanced' },
-        { name: 'SQL', level: 'Advanced' },
-        { name: 'PostgreSQL', level: 'Intermediate' },
-        { name: 'MongoDB', level: 'Intermediate' },
-        { name: 'REST APIs', level: 'Advanced' }
-      ]
-    },
-    {
-      title: 'Cybersecurity',
-      icon: Shield,
-      color: 'from-red-500 to-pink-500',
-      direction: 'right' as const,
-      skills: [
-        { name: 'Threat Modeling', level: 'Intermediate' },
-        { name: 'Crypto', level: 'Intermediate' },
-        { name: 'Pen Testing', level: 'Intermediate' },
-        { name: 'Burp Suite', level: 'Advanced' },
-        { name: 'Wireshark', level: 'Intermediate' },
-        { name: 'Metasploit', level: 'Intermediate' },
-        { name: 'Nmap', level: 'Advanced' },
-        { name: 'Nikto', level: 'Intermediate' },
-        { name: 'Linux (Kali)', level: 'Advanced' },
-        { name: 'OSQuery', level: 'Intermediate' },
-        { name: 'SIEM (Splunk)', level: 'Intermediate' },
-        { name: 'Incident Response', level: 'Intermediate' }
-      ]
-    },
-    {
-      title: 'DevOps & Tools',
-      icon: Server,
-      color: 'from-green-500 to-emerald-500',
-      direction: 'left' as const,
-      skills: [
-        { name: 'Git & GitHub', level: 'Advanced' },
-        { name: 'Docker', level: 'Intermediate' },
-        { name: 'Postman', level: 'Advanced' },
-        { name: 'Firebase', level: 'Intermediate' },
-        { name: ' Jenkins (CI/CD)', level: 'Basic' },
-        { name: 'Nginx', level: 'Intermediate' },
-        { name: 'JWT', level: 'Intermediate' },
-        { name: 'OpenVAS', level: 'Intermediate' },
-        { name: 'AWS', level: 'Basic' }
-      ]
-    },
-    {
-      title: 'AI/ML',
-      icon: Brain,
-      color: 'from-purple-500 to-indigo-500',
-      direction: 'right' as const,
-      skills: [
-        { name: 'BERT', level: 'Intermediate' },
-        { name: 'TensorFlow', level: 'Intermediate' },
-        { name: 'OpenCV', level: 'Intermediate' },
-        { name: 'Hugging Face', level: 'Intermediate' },
-        { name: 'Multimodal ML', level: 'Intermediate' },
-        { name: 'NLP', level: 'Intermediate' },
-        { name: 'PyTorch', level: 'Basic' },
-        { name: 'Scikit-learn', level: 'Intermediate' },
-        { name: 'Pandas', level: 'Advanced' }
-      ]
-    }
-  ];
+  const reducedMotion = Boolean(useReducedMotion());
 
-  const getLevelColor = (level: string) => {
-    switch (level) {
-      case 'Advanced': return 'text-green-400';
-      case 'Intermediate': return 'text-yellow-400';
-      case 'Basic': return 'text-orange-400';
-      default: return 'text-gray-400';
-    }
+  const reveal: Variants = reducedMotion
+    ? { hidden: { opacity: 0 }, visible: { opacity: 1, transition: { duration: 0.15 } } }
+    : {
+        hidden: { opacity: 0, y: 13, filter: 'blur(2px)' },
+        visible: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
+      };
+
+  const sequence: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: reducedMotion ? 0 : 0.075 } },
   };
 
   return (
-    <section id="skills" className="py-20">
-      <div className="container mx-auto px-6">
-        <ScrollReveal direction="up">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl lg:text-5xl font-bold mb-4">
-              My <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Skills</span>
-            </h2>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              A comprehensive toolkit spanning full-stack development, cybersecurity, and emerging technologies
-            </p>
-          </div>
-        </ScrollReveal>
+    <section id="skills" className="skills-section" aria-labelledby="skills-heading">
+      <div className="skills-shell">
+        <motion.header
+          className="skills-intro"
+          data-nav-anchor="start"
+          variants={sequence}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.35 }}
+        >
+          <motion.p className="skills-eyebrow" variants={reveal}>Skills</motion.p>
+          <motion.h2 id="skills-heading" className="skills-heading" variants={reveal}>
+            <span>The tools behind</span>
+            <span>the work.</span>
+          </motion.h2>
+          <motion.p className="skills-summary" variants={reveal}>
+            Languages, systems, frameworks, and platforms I’ve used across production engineering, security, and intelligent automation.
+          </motion.p>
+        </motion.header>
 
-        <div className="grid lg:grid-cols-2 gap-8">
-          {skillCategories.map((category, index) => (
-            <ScrollReveal 
-              key={category.title} 
-              direction={category.direction}
-              delay={index * 200}
+        <motion.div
+          className="skills-index"
+          aria-label="Technical skills by category"
+          variants={sequence}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.08 }}
+        >
+          {skillCategories.map((category) => (
+            <motion.section
+              key={category.id}
+              className="skill-index__row"
+              data-accent={category.accent}
+              aria-labelledby={`skill-category-${category.id}`}
+              variants={reveal}
             >
-              <div className="skill-card bg-gray-800/50 rounded-xl p-8 hover:bg-gray-700/50 transition-all duration-300">
-                <div className="flex items-center mb-6">
-                  <div className={`p-3 rounded-lg bg-gradient-to-r ${category.color} mr-4`}>
-                    <category.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <h3 className="text-2xl font-bold">{category.title}</h3>
+              <header className="skill-index__header">
+                <span className="skill-index__number" aria-hidden="true">{category.number}</span>
+                <div>
+                  <h3 id={`skill-category-${category.id}`}>{category.title}</h3>
+                  <p>{category.descriptor}</p>
                 </div>
+              </header>
 
-                <div className="grid grid-cols-3 gap-3">
-                  {category.skills.map((skill, skillIndex) => (
-                    <ScrollReveal
-                      key={skill.name}
-                      direction="zoom"
-                      delay={index * 200 + skillIndex * 50}
-                    >
-                      <div className="skill-badge flex flex-col space-y-1 p-3 bg-gray-900/50 rounded-lg hover:bg-gray-900/70 transition-all duration-300">
-                        <span className="font-medium text-white text-sm">{skill.name}</span>
-                        <span className={`text-xs ${getLevelColor(skill.level)}`}>
-                          {skill.level}
-                        </span>
-                      </div>
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </div>
-            </ScrollReveal>
+              <ul className="skill-index__list">
+                {category.skills.map((skill) => (
+                  <li key={skill} className="skill-index__item">
+                    <span className="skill-token">{skill}</span>
+                  </li>
+                ))}
+              </ul>
+            </motion.section>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

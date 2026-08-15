@@ -1,302 +1,231 @@
-// import React, { useState } from 'react';
-// import { Mail, Send, CheckCircle } from 'lucide-react';
-// import ScrollReveal from './ScrollReveal';
-
-// const Contact = () => {
-//   const [formData, setFormData] = useState({
-//     name: '',
-//     email: '',
-//     message: ''
-//   });
-//   const [isSubmitting, setIsSubmitting] = useState(false);
-//   const [isSubmitted, setIsSubmitted] = useState(false);
-
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-//     setFormData({
-//       ...formData,
-//       [e.target.name]: e.target.value
-//     });
-//   };
-
-//   const handleSubmit = async (e: React.FormEvent) => {
-//     e.preventDefault();
-//     setIsSubmitting(true);
-    
-//     // Simulate form submission
-//     await new Promise(resolve => setTimeout(resolve, 2000));
-    
-//     setIsSubmitting(false);
-//     setIsSubmitted(true);
-//     setFormData({ name: '', email: '', message: '' });
-    
-//     // Reset success message after 3 seconds
-//     setTimeout(() => setIsSubmitted(false), 3000);
-//   };
-
-//   return (
-//     <section id="contact" className="py-20">
-//       <div className="container mx-auto px-6">
-//         <ScrollReveal direction="up">
-//           <div className="text-center mb-16">
-//             <div className="flex items-center justify-center mb-4">
-//               <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg mr-4">
-//                 <Mail className="w-6 h-6 text-white" />
-//               </div>
-//               <h2 className="text-4xl lg:text-5xl font-bold">
-//                 Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Touch</span>
-//               </h2>
-//             </div>
-//             <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-//               Let's discuss opportunities, collaborations, or just connect!
-//             </p>
-//           </div>
-//         </ScrollReveal>
-
-//         <ScrollReveal direction="up" delay={200}>
-//           <div className="max-w-2xl mx-auto">
-//             <form onSubmit={handleSubmit} className="space-y-6">
-//               <div className="grid md:grid-cols-2 gap-6">
-//                 <div className="space-y-2">
-//                   <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-//                     Name
-//                   </label>
-//                   <input
-//                     type="text"
-//                     id="name"
-//                     name="name"
-//                     value={formData.name}
-//                     onChange={handleChange}
-//                     required
-//                     placeholder="Your Name"
-//                     className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
-//                   />
-//                 </div>
-                
-//                 <div className="space-y-2">
-//                   <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-//                     Email
-//                   </label>
-//                   <input
-//                     type="email"
-//                     id="email"
-//                     name="email"
-//                     value={formData.email}
-//                     onChange={handleChange}
-//                     required
-//                     placeholder="your.email@example.com"
-//                     className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
-//                   />
-//                 </div>
-//               </div>
-
-//               <div className="space-y-2">
-//                 <label htmlFor="message" className="block text-sm font-medium text-gray-300">
-//                   Message
-//                 </label>
-//                 <textarea
-//                   id="message"
-//                   name="message"
-//                   value={formData.message}
-//                   onChange={handleChange}
-//                   required
-//                   rows={6}
-//                   placeholder="Your message..."
-//                   className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400 resize-none"
-//                 />
-//               </div>
-
-//               <button
-//                 type="submit"
-//                 disabled={isSubmitting || isSubmitted}
-//                 className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center ${
-//                   isSubmitted
-//                     ? 'bg-green-600 text-white'
-//                     : isSubmitting
-//                     ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-//                     : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 btn-glow'
-//                 }`}
-//               >
-//                 {isSubmitted ? (
-//                   <>
-//                     <CheckCircle className="w-5 h-5 mr-2" />
-//                     Message Sent!
-//                   </>
-//                 ) : isSubmitting ? (
-//                   <>
-//                     <div className="w-5 h-5 mr-2 border-2 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-//                     Sending...
-//                   </>
-//                 ) : (
-//                   <>
-//                     <Send className="w-5 h-5 mr-2" />
-//                     Send Message
-//                   </>
-//                 )}
-//               </button>
-//             </form>
-//           </div>
-//         </ScrollReveal>
-//       </div>
-//     </section>
-//   );
-// };
-
-// export default Contact;
-
-
-
-
-import React, { useState, useRef } from 'react';
+import { useRef, useState, type ChangeEvent, type FormEvent } from 'react';
 import emailjs from '@emailjs/browser';
-import { Mail, Send, CheckCircle } from 'lucide-react';
-import ScrollReveal from './ScrollReveal';
+import { ArrowDown, ArrowRight, ArrowUpRight, Check } from 'lucide-react';
+import { motion, useReducedMotion, type Variants } from 'motion/react';
+
+const EMAILJS_SERVICE_ID = 'service_rp2083o';
+const EMAILJS_TEMPLATE_ID = 'template_l2fjjni';
+const EMAILJS_PUBLIC_KEY = 'TXUCXKxLv-Ot9_WUV';
+
+const contactLinks = [
+  {
+    label: 'Email',
+    value: 'wadhwanisahil9@gmail.com',
+    href: 'mailto:wadhwanisahil9@gmail.com',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'Connect professionally',
+    href: 'https://www.linkedin.com/in/sahil-wadhwani-06848122a/',
+    external: true,
+  },
+  {
+    label: 'GitHub',
+    value: 'View my code',
+    href: 'https://github.com/SahilWadhwani',
+    external: true,
+  },
+  {
+    label: 'Resume',
+    value: 'Download PDF',
+    href: '/Sahil_Wadhwani_Resume.pdf',
+    download: 'Sahil-Wadhwani-Resume.pdf',
+  },
+] as const;
+
+type FormStatus = 'idle' | 'success' | 'error';
 
 const Contact = () => {
+  const formRef = useRef<HTMLFormElement>(null);
+  const shouldReduceMotion = useReducedMotion();
   const [formData, setFormData] = useState({
     user_name: '',
     user_email: '',
-    user_message: ''
+    user_message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [status, setStatus] = useState<FormStatus>('idle');
 
-  const formRef = useRef<HTMLFormElement>(null);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+  const revealVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 12, filter: shouldReduceMotion ? 'none' : 'blur(2px)' },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: 'blur(0px)',
+      transition: { duration: shouldReduceMotion ? 0.15 : 0.5, ease: [0.22, 1, 0.36, 1] },
+    },
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleChange = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = event.target;
+    setFormData((current) => ({ ...current, [name]: value }));
+
+    if (status !== 'idle') {
+      setStatus('idle');
+    }
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (isSubmitting) return;
+
+    setStatus('idle');
+
+    if (!formRef.current) {
+      setStatus('error');
+      return;
+    }
+
     setIsSubmitting(true);
 
-    if (!formRef.current) return;
-
-    emailjs.sendForm(
-      'service_rp2083o',
-      'template_l2fjjni',
-      formRef.current,
-      'TXUCXKxLv-Ot9_WUV'
-    )
-    .then(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
+    try {
+      await emailjs.sendForm(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        formRef.current,
+        EMAILJS_PUBLIC_KEY,
+      );
       setFormData({ user_name: '', user_email: '', user_message: '' });
-
-      setTimeout(() => setIsSubmitted(false), 3000);
-    })
-    .catch((error) => {
+      setStatus('success');
+    } catch {
+      setStatus('error');
+    } finally {
       setIsSubmitting(false);
-      alert('Something went wrong: ' + error.text);
-    });
+    }
   };
 
+  const buttonLabel = isSubmitting
+    ? 'Sending...'
+    : status === 'success'
+      ? 'Message sent'
+      : 'Send message';
+
   return (
-    <section id="contact" className="py-20">
-      <div className="container mx-auto px-6">
-        <ScrollReveal direction="up">
-          <div className="text-center mb-16">
-            <div className="flex items-center justify-center mb-4">
-              <div className="p-3 bg-gradient-to-r from-cyan-500 to-blue-600 rounded-lg mr-4">
-                <Mail className="w-6 h-6 text-white" />
-              </div>
-              <h2 className="text-4xl lg:text-5xl font-bold">
-                Get in <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">Touch</span>
-              </h2>
-            </div>
-            <p className="text-xl text-gray-400 max-w-2xl mx-auto">
-              Let's discuss opportunities, collaborations, or just connect!
+    <section id="contact" className="contact-section relative" aria-labelledby="contact-heading">
+      <div className="contact-shell">
+        <div className="contact-layout">
+          <motion.div
+            className="contact-intro"
+            data-nav-anchor="start"
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.25 }}
+          >
+            <p className="contact-eyebrow">Contact</p>
+            <h2 id="contact-heading" className="contact-heading">Let&rsquo;s talk.</h2>
+            <p className="contact-summary">
+              If you&rsquo;re building something around backend systems, security, intelligent
+              automation, or just have an interesting engineering problem, I&rsquo;d be happy to hear
+              from you.
             </p>
-          </div>
-        </ScrollReveal>
 
-        <ScrollReveal direction="up" delay={200}>
-          <div className="max-w-2xl mx-auto">
-            <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-300">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="user_name"
-                    value={formData.user_name}
-                    onChange={handleChange}
-                    required
-                    placeholder="Your Name"
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
-                  />
-                </div>
-                
-                <div className="space-y-2">
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-300">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="user_email"
-                    value={formData.user_email}
-                    onChange={handleChange}
-                    required
-                    placeholder="your.email@example.com"
-                    className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400"
-                  />
-                </div>
-              </div>
+            <address className="contact-links" aria-label="Direct contact links">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  className="contact-link"
+                  href={link.href}
+                  target={'external' in link && link.external ? '_blank' : undefined}
+                  rel={'external' in link && link.external ? 'noopener noreferrer' : undefined}
+                  download={'download' in link ? link.download : undefined}
+                >
+                  <span className="contact-link__label">{link.label}</span>
+                  <span className="contact-link__value">{link.value}</span>
+                  {'external' in link && link.external ? (
+                    <ArrowUpRight aria-hidden="true" size={16} />
+                  ) : link.label === 'Resume' ? (
+                    <ArrowDown aria-hidden="true" size={16} />
+                  ) : (
+                    <ArrowRight aria-hidden="true" size={16} />
+                  )}
+                </a>
+              ))}
+            </address>
+          </motion.div>
 
-              <div className="space-y-2">
-                <label htmlFor="message" className="block text-sm font-medium text-gray-300">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  name="user_message"
-                  value={formData.user_message}
+          <motion.form
+            ref={formRef}
+            className="contact-form"
+            onSubmit={handleSubmit}
+            variants={revealVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            aria-busy={isSubmitting}
+          >
+            <div className="contact-form__grid">
+              <div className="contact-field-group">
+                <label htmlFor="contact-name">Name</label>
+                <input
+                  id="contact-name"
+                  className="contact-field"
+                  type="text"
+                  name="user_name"
+                  value={formData.user_name}
                   onChange={handleChange}
+                  autoComplete="name"
+                  placeholder="Your name"
                   required
-                  rows={6}
-                  placeholder="Your message..."
-                  className="w-full px-4 py-3 bg-gray-800/50 border border-gray-700 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent transition-all duration-300 text-white placeholder-gray-400 resize-none"
                 />
               </div>
 
-              <button
+              <div className="contact-field-group">
+                <label htmlFor="contact-email">Email</label>
+                <input
+                  id="contact-email"
+                  className="contact-field"
+                  type="email"
+                  name="user_email"
+                  value={formData.user_email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  placeholder="you@example.com"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="contact-field-group contact-field-group--message">
+              <label htmlFor="contact-message">Message</label>
+              <textarea
+                id="contact-message"
+                className="contact-field contact-field--message"
+                name="user_message"
+                value={formData.user_message}
+                onChange={handleChange}
+                placeholder="Tell me what you&rsquo;re working on..."
+                rows={5}
+                required
+              />
+            </div>
+
+            <div className="contact-form__actions">
+              <motion.button
+                className="contact-submit"
                 type="submit"
-                disabled={isSubmitting || isSubmitted}
-                className={`w-full py-4 px-6 rounded-lg font-semibold transition-all duration-300 flex items-center justify-center ${
-                  isSubmitted
-                    ? 'bg-green-600 text-white'
-                    : isSubmitting
-                    ? 'bg-gray-600 text-gray-300 cursor-not-allowed'
-                    : 'bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-600 hover:to-blue-700 text-white hover:scale-105 hover:shadow-lg hover:shadow-cyan-500/25 btn-glow'
-                }`}
+                disabled={isSubmitting || status === 'success'}
+                whileHover={shouldReduceMotion || isSubmitting ? undefined : { y: -1 }}
+                whileTap={shouldReduceMotion || isSubmitting ? undefined : { scale: 0.985 }}
               >
-                {isSubmitted ? (
-                  <>
-                    <CheckCircle className="w-5 h-5 mr-2" />
-                    Message Sent!
-                  </>
-                ) : isSubmitting ? (
-                  <>
-                    <div className="w-5 h-5 mr-2 border-2 border-gray-300 border-t-transparent rounded-full animate-spin"></div>
-                    Sending...
-                  </>
+                <span>{buttonLabel}</span>
+                {status === 'success' ? (
+                  <Check aria-hidden="true" size={16} />
                 ) : (
-                  <>
-                    <Send className="w-5 h-5 mr-2" />
-                    Send Message
-                  </>
+                  <ArrowRight aria-hidden="true" size={16} />
                 )}
-              </button>
-            </form>
-          </div>
-        </ScrollReveal>
+              </motion.button>
+
+              <div className="contact-status" aria-live="polite" aria-atomic="true">
+                {status === 'success' && <span data-state="success">Thanks — I&rsquo;ll be in touch.</span>}
+                {status === 'error' && (
+                  <span data-state="error" role="alert">Couldn&rsquo;t send. Please try again.</span>
+                )}
+              </div>
+            </div>
+          </motion.form>
+        </div>
       </div>
     </section>
   );
